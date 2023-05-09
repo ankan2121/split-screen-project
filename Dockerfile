@@ -1,14 +1,14 @@
-# Use nginx as the web server
-FROM nginx:alpine
+# Use the official Python image as the parent image
+FROM python:3
 
-# Copy the rest of the application files to the container
-COPY . .
+# Set the working directory to /app
+WORKDIR /app
 
-# Copy the built application to the nginx web root directory
-COPY dist /usr/share/nginx/html
+# Copy the current directory contents into the container at /app
+COPY . /app
 
-# Expose port 80 for incoming traffic
+# Expose port 80 so that it's accessible outside of the container
 EXPOSE 80
 
-# Start nginx web server when the container starts
-CMD ["nginx", "-g", "daemon off;"]
+# Start the web server when the container starts
+CMD ["python", "-m", "http.server", "80"]
